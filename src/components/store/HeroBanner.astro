@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "../../assets/products/hero-naturista.svg";
+---
+
+<section class="relative overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 text-white py-14 lg:py-20">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 opacity-20 pointer-events-none">
+    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-emerald-400 blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-teal-400 blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- Columna de Texto y Llamado a la Acción -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-800/70 border border-emerald-600/50 text-emerald-200 text-xs sm:text-sm font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Directo de laboratorio herbolario · Menudeo y Mayoreo
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-[52px] font-extrabold tracking-tight leading-[1.12] text-white">
+          Salud natural de alta pureza para tu <span class="text-emerald-300 underline decoration-emerald-500/50 decoration-wavy underline-offset-8">hogar o negocio</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          Abastece tu tienda naturista, farmacia o consumo familiar con extractos estandarizados, cápsulas orgánicas y superalimentos. Obtén hasta <strong class="text-white font-bold">32% de margen directo</strong> comprando a precio de mayoreo desde 6 unidades.
+        </p>
+
+        <!-- Botones CTA principales -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+          <a
+            href="#catalogo"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold text-base shadow-lg shadow-emerald-950/40 transition-all hover:-translate-y-0.5"
+          >
+            <span>Explorar Catálogo y Precios</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+
+          <a
+            href="https://wa.me/0000000000?text=Hola%20BioRa%C3%ADz,%20me%20interesa%20el%20cat%C3%A1logo%20de%20mayoreo%20y%20menudeo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/20 backdrop-blur-xs transition-all"
+          >
+            <span>Cotizar Lote Mayorista</span>
+          </a>
+        </div>
+
+        <!-- Indicadores rápidos de confianza -->
+        <div class="pt-6 border-t border-emerald-800/80 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
+          <div>
+            <p class="text-2xl font-extrabold text-emerald-300">100%</p>
+            <p class="text-xs text-emerald-200/80">Ingredientes naturales certificados</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-emerald-300">6 pzas</p>
+            <p class="text-xs text-emerald-200/80">Mínimo para precio de mayoreo</p>
+          </div>
+          <div>
+            <p class="text-2xl font-extrabold text-emerald-300">24h</p>
+            <p class="text-xs text-emerald-200/80">Despacho express garantizado</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna de Imagen Optimizada con <Image /> de Astro -->
+      <div class="lg:col-span-5">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          <div class="relative rounded-3xl overflow-hidden border-2 border-emerald-700/50 shadow-2xl shadow-emerald-950/70 bg-emerald-900/40">
+            <Image
+              src={heroImage}
+              alt="Colección de productos naturistas BioRaíz: Moringa orgánica, Colágeno hidrolizado y Extracto de Propóleo"
+              width={800}
+              height={600}
+              loading="eager"
+              fetchpriority="high"
+              class="w-full h-auto object-cover"
+            />
+          </div>
+
+          <!-- Etiqueta flotante de ahorro mayorista -->
+          <div class="mt-4 sm:mt-0 sm:absolute sm:-bottom-5 sm:-left-5 bg-white text-slate-800 p-4 rounded-2xl shadow-xl border border-emerald-100 flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 font-extrabold text-sm">
+              -32%
+            </div>
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-emerald-700">Precios Duales Transparentes</p>
+              <p class="text-xs text-slate-600">Compara menudeo vs. mayoreo en cada ficha</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

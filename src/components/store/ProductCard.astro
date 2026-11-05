@@ -1,0 +1,119 @@
+---
+import { Image } from "astro:assets";
+import type { Product } from "../../data/products";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const savingsPercent = Math.round(
+  ((product.retailPrice - product.wholesalePrice) / product.retailPrice) * 100
+);
+---
+
+<article
+  class="group bg-white rounded-3xl border border-stone-200/90 hover:border-emerald-400 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 transition-all duration-300 flex flex-col overflow-hidden"
+  data-product-name={product.name.toLowerCase()}
+  data-product-category={product.category.toLowerCase()}
+>
+  <!-- Contenedor de Imagen Optimizada con <Image /> -->
+  <div class="relative aspect-square bg-emerald-50/50 overflow-hidden p-4 flex items-center justify-center">
+    {
+      product.badge && (
+        <span class="absolute top-3.5 left-3.5 z-10 px-3 py-1 rounded-full text-xs font-bold bg-emerald-700 text-white shadow-xs">
+          {product.badge}
+        </span>
+      )
+    }
+
+    <span class="absolute top-3.5 right-3.5 z-10 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300/70">
+      Ahorra {savingsPercent}% en Mayoreo
+    </span>
+
+    <Image
+      src={product.image}
+      alt={`${product.name} - ${product.presentation}`}
+      width={400}
+      height={400}
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+    />
+  </div>
+
+  <!-- Información del Producto -->
+  <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-5">
+    <div class="space-y-2">
+      <div class="flex items-center justify-between gap-2 text-xs text-slate-500">
+        <span class="font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md">
+          {product.category}
+        </span>
+        <span class="font-mono text-[11px] text-slate-400">SKU: {product.sku}</span>
+      </div>
+
+      <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-800 transition-colors leading-snug">
+        {product.name}
+      </h3>
+
+      <p class="text-xs font-medium text-slate-500">
+        📦 {product.presentation}
+      </p>
+
+      <p class="text-sm text-slate-600 line-clamp-2 leading-relaxed pt-1">
+        {product.shortDescription}
+      </p>
+    </div>
+
+    <!-- Bloque Dual de Precios: Menudeo y Mayoreo -->
+    <div class="space-y-3 pt-2 border-t border-stone-100">
+      <div class="grid grid-cols-2 gap-2.5">
+        <!-- Precio Menudeo -->
+        <div class="p-3 rounded-2xl bg-stone-50 border border-stone-200/80">
+          <span class="block text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            Precio Menudeo
+          </span>
+          <div class="mt-0.5 flex items-baseline gap-1">
+            <span class="text-lg font-extrabold text-slate-800">
+              ${product.retailPrice}
+            </span>
+            <span class="text-[11px] text-slate-500">MXN</span>
+          </div>
+          <span class="block text-[11px] text-slate-400 mt-0.5">1 a {product.minWholesaleQty - 1} pzas</span>
+        </div>
+
+        <!-- Precio Especial Mayoreo -->
+        <div class="p-3 rounded-2xl bg-emerald-50/90 border-2 border-emerald-500/40 relative">
+          <span class="block text-[11px] font-bold uppercase tracking-wider text-emerald-800">
+            ★ Mayoreo
+          </span>
+          <div class="mt-0.5 flex items-baseline gap-1">
+            <span class="text-xl font-extrabold text-emerald-700">
+              ${product.wholesalePrice}
+            </span>
+            <span class="text-[11px] font-semibold text-emerald-700">MXN</span>
+          </div>
+          <span class="block text-[11px] font-medium text-emerald-800/80 mt-0.5">
+            Desde {product.minWholesaleQty}+ pzas
+          </span>
+        </div>
+      </div>
+
+      <!-- Botón Agregar al Carrito -->
+      <button
+        type="button"
+        data-add-to-cart
+        data-product-name={product.name}
+        data-retail-price={product.retailPrice}
+        data-wholesale-price={product.wholesalePrice}
+        class="w-full py-3 px-4 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>Agregar al carrito</span>
+      </button>
+    </div>
+  </div>
+</article>
+

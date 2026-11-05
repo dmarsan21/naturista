@@ -1,16 +1,175 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/store/Header.astro";
+import HeroBanner from "../components/store/HeroBanner.astro";
+import ProductCard from "../components/store/ProductCard.astro";
+import WholesaleBanner from "../components/store/WholesaleBanner.astro";
+import WhatsAppButton from "../components/store/WhatsAppButton.astro";
+import Footer from "../components/store/Footer.astro";
+import { products } from "../data/products";
+
+const categories = ["Todos", ...new Set(products.map((p) => p.category))];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="BioRaíz | Tienda Naturista de Menudeo y Mayoreo">
+  <!-- 1. Header modular con buscador y carrito -->
+  <Header activePage="store" />
+
+  <main class="flex-1">
+    <!-- 2. Hero Section atractivo con <Image /> optimizada y CTA claro -->
+    <HeroBanner />
+
+    <!-- 3. Banda de beneficios de compra al mayoreo -->
+    <WholesaleBanner />
+
+    <!-- 4. Sección de Catálogo de Productos -->
+    <section id="catalogo" class="py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Encabezado y filtros rápidos -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/80 px-3 py-1 rounded-full">
+            🌿 Catálogo Directo de Distribuidora
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
+            Productos Naturistas Destacados
+          </h2>
+          <p class="text-slate-600 mt-1 text-base">
+            Precios transparentes de <strong>menudeo</strong> para tu bienestar y <strong>mayoreo</strong> para hacer crecer tu negocio.
+          </p>
+        </div>
+
+        <!-- Filtros por categoría -->
+        <div class="flex flex-wrap items-center gap-2" id="category-filters">
+          {
+            categories.map((cat, idx) => (
+              <button
+                type="button"
+                data-filter-category={cat.toLowerCase()}
+                class={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  idx === 0
+                    ? "bg-emerald-700 text-white shadow-sm"
+                    : "bg-white text-slate-600 border border-stone-200 hover:border-emerald-400 hover:text-emerald-800"
+                }`}
+              >
+                {cat}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Grid de Productos Reutilizando ProductCard.astro -->
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        {products.map((product) => <ProductCard product={product} />)}
+      </div>
+
+      <!-- Banner inferior de invitación al Panel de Administración (Prototipo) -->
+      <div id="calidad" class="mt-16 rounded-3xl bg-gradient-to-r from-emerald-50 via-teal-50/60 to-emerald-50 border border-emerald-200/80 p-8 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 text-center lg:text-left max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">
+            Vista del Prototipo para la Dueña
+          </span>
+          <h3 class="text-2xl font-extrabold text-slate-900">
+            ¿Quieres ver cómo se administran los precios de Menudeo y Mayoreo?
+          </h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Explora el <strong>Panel de Administración (Vista 2)</strong> diseñado especialmente para la dueña de la distribuidora: métricas del mes, control de stock y alta rápida de productos con cálculo automático de margen mayorista.
+          </p>
+        </div>
+
+        <a
+          href="/admin"
+          class="shrink-0 inline-flex items-center gap-2.5 px-6 py-4 rounded-2xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-lg shadow-emerald-900/15 transition-all hover:-translate-y-0.5"
+        >
+          <span>Ir al Panel de Administración</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast de confirmación al agregar al carrito -->
+  <div
+    id="cart-toast"
+    class="fixed bottom-24 right-6 z-50 bg-emerald-950 text-white px-5 py-3.5 rounded-2xl shadow-xl border border-emerald-700 flex items-center gap-3 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300"
+  >
+    <span class="w-6 h-6 rounded-full bg-emerald-500 text-emerald-950 flex items-center justify-center font-bold text-xs">
+      ✓
+    </span>
+    <div class="text-xs">
+      <p class="font-bold text-emerald-300">Agregado al carrito</p>
+      <p id="cart-toast-product" class="text-white font-medium">Producto naturista</p>
+    </div>
+  </div>
+
+  <!-- 5. Botón flotante de WhatsApp para atención directa -->
+  <WhatsAppButton />
+
+  <!-- 6. Pie de página -->
+  <Footer />
+</MainLayout>
+
+<script>
+  // Interactividad ligera para el carrito, filtros de categoría y buscador
+  const cartBadge = document.getElementById("cart-count-badge");
+  const cartToast = document.getElementById("cart-toast");
+  const cartToastProduct = document.getElementById("cart-toast-product");
+  const addButtons = document.querySelectorAll("[data-add-to-cart]");
+  let cartCount = 2;
+  let toastTimeout: ReturnType<typeof setTimeout>;
+
+  addButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      cartCount += 1;
+      if (cartBadge) {
+        cartBadge.textContent = String(cartCount);
+        cartBadge.classList.add("scale-125");
+        setTimeout(() => cartBadge.classList.remove("scale-125"), 200);
+      }
+
+      const productName = btn.getAttribute("data-product-name") || "Producto";
+      if (cartToast && cartToastProduct) {
+        cartToastProduct.textContent = productName;
+        cartToast.classList.remove("translate-y-10", "opacity-0");
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          cartToast.classList.add("translate-y-10", "opacity-0");
+        }, 2600);
+      }
+    });
+  });
+
+  // Filtro por categorías y búsqueda en tiempo real
+  const filterButtons = document.querySelectorAll("[data-filter-category]");
+  const productCards = document.querySelectorAll<HTMLElement>("[data-product-name]");
+  const searchInput = document.getElementById("store-search") as HTMLInputElement | null;
+  let activeCategory = "todos";
+
+  function filterCatalog() {
+    const query = (searchInput?.value || "").toLowerCase().trim();
+    productCards.forEach((card) => {
+      const name = card.getAttribute("data-product-name") || "";
+      const category = card.getAttribute("data-product-category") || "";
+      const matchesCategory = activeCategory === "todos" || category === activeCategory;
+      const matchesSearch = !query || name.includes(query) || category.includes(query);
+      card.style.display = matchesCategory && matchesSearch ? "" : "none";
+    });
+  }
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeCategory = button.getAttribute("data-filter-category") || "todos";
+      filterButtons.forEach((b) => {
+        b.className =
+          "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer bg-white text-slate-600 border border-stone-200 hover:border-emerald-400 hover:text-emerald-800";
+      });
+      button.className =
+        "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer bg-emerald-700 text-white shadow-sm";
+      filterCatalog();
+    });
+  });
+
+  searchInput?.addEventListener("input", filterCatalog);
+</script>

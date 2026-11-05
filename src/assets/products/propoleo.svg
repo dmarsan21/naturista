@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" fill="none">
+  <defs>
+    <linearGradient id="bg-propoleo" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ecfdf5" />
+      <stop offset="100%" stop-color="#fef3c7" />
+    </linearGradient>
+    <filter id="drop-propoleo" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#78350f" flood-opacity="0.16" />
+    </filter>
+  </defs>
+  <rect width="600" height="600" rx="32" fill="url(#bg-propoleo)" />
+  <circle cx="300" cy="300" r="205" fill="#fde68a" fill-opacity="0.35" />
+  <ellipse cx="300" cy="490" rx="120" ry="18" fill="#78350f" fill-opacity="0.14" />
+  <!-- Amber Dropper Bottle -->
+  <g filter="url(#drop-propoleo)" transform="translate(215, 100)">
+    <rect x="62" y="0" width="46" height="58" rx="23" fill="#1f2937" />
+    <rect x="46" y="50" width="78" height="28" rx="6" fill="#f59e0b" />
+    <path d="M46 78 L16 122 L16 345 C16 362 30 376 47 376 L123 376 C140 376 154 362 154 345 L154 122 L124 78 Z" fill="#92400e" />
+    <rect x="30" y="148" width="110" height="175" rx="14" fill="#fffbeb" />
+    <!-- Honeycomb icon -->
+    <polygon points="85,172 103,182 103,202 85,212 67,202 67,182" fill="#f59e0b" fill-opacity="0.25" stroke="#d97706" stroke-width="2.5" />
+    <circle cx="85" cy="192" r="8" fill="#d97706" />
+    <rect x="48" y="232" width="74" height="11" rx="5.5" fill="#78350f" />
+    <rect x="56" y="250" width="58" height="8" rx="4" fill="#059669" />
+    <rect x="50" y="274" width="70" height="22" rx="11" fill="#059669" />
+  </g>
+</svg>

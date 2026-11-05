@@ -1,0 +1,147 @@
+---
+import { Image } from "astro:assets";
+import type { Product } from "../../data/products";
+
+interface Props {
+  products: Product[];
+}
+
+const { products } = Astro.props;
+---
+
+<section id="tabla-productos" class="bg-white rounded-3xl border border-stone-200/90 shadow-xs overflow-hidden">
+  <!-- Encabezado de la Tabla con Botón Destacado "+ Nuevo Producto" -->
+  <div class="p-6 border-b border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <h2 class="text-xl font-extrabold text-slate-900">Catálogo e Inventario de Productos</h2>
+        <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">
+          50 registrados
+        </span>
+      </div>
+      <p class="text-sm text-slate-500 mt-1">
+        Gestiona existencias y administra precios diferenciados de <strong>Menudeo</strong> y <strong>Mayoreo</strong>.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        id="open-new-product-modal-btn"
+        class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer hover:-translate-y-0.5"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>+ Nuevo Producto</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla Responsiva -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-stone-50/90 border-b border-stone-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+          <th class="py-3.5 px-6">Producto</th>
+          <th class="py-3.5 px-4">Categoría / SKU</th>
+          <th class="py-3.5 px-4">Precio Menudeo</th>
+          <th class="py-3.5 px-4">Precio Mayoreo</th>
+          <th class="py-3.5 px-4">Stock</th>
+          <th class="py-3.5 px-6 text-right">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="admin-products-tbody" class="divide-y divide-stone-200/70 text-sm">
+        {
+          products.map((product) => {
+            const marginPercent = Math.round(
+              ((product.retailPrice - product.wholesalePrice) / product.retailPrice) * 100
+            );
+            const isLowStock = product.stock < 25;
+
+            return (
+              <tr class="hover:bg-emerald-50/40 transition-colors">
+                <!-- Producto con <Image /> optimizada -->
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 p-1 shrink-0 flex items-center justify-center overflow-hidden">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        width={96}
+                        height={96}
+                        loading="lazy"
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div>
+                      <p class="font-bold text-slate-900">{product.name}</p>
+                      <p class="text-xs text-slate-500">{product.presentation}</p>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- Categoría / SKU -->
+                <td class="py-4 px-4">
+                  <span class="inline-block text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-md">
+                    {product.category}
+                  </span>
+                  <span class="block text-xs font-mono text-slate-400 mt-1">{product.sku}</span>
+                </td>
+
+                <!-- Precio Menudeo -->
+                <td class="py-4 px-4">
+                  <span class="font-bold text-slate-800 text-base">${product.retailPrice}.00</span>
+                  <span class="block text-[11px] text-slate-400">Público general</span>
+                </td>
+
+                <!-- Precio Mayoreo -->
+                <td class="py-4 px-4">
+                  <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200">
+                    <span class="font-extrabold text-emerald-700 text-base">${product.wholesalePrice}.00</span>
+                    <span class="text-[11px] font-bold text-emerald-800 bg-emerald-200/70 px-1.5 py-0.5 rounded">
+                      -{marginPercent}%
+                    </span>
+                  </div>
+                  <span class="block text-[11px] text-slate-500 mt-1">
+                    Mínimo {product.minWholesaleQty} pzas
+                  </span>
+                </td>
+
+                <!-- Stock -->
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class={`w-2 h-2 rounded-full ${
+                        isLowStock ? "bg-amber-500" : "bg-emerald-500"
+                      }`}
+                    />
+                    <span class={`font-semibold ${isLowStock ? "text-amber-700" : "text-slate-700"}`}>
+                      {product.stock} u.
+                    </span>
+                  </div>
+                  {isLowStock && (
+                    <span class="text-[11px] text-amber-600 font-medium">Por resurtir</span>
+                  )}
+                </td>
+
+                <!-- Acciones -->
+                <td class="py-4 px-6 text-right">
+                  <div class="inline-flex items-center gap-2">
+                    <button
+                      type="button"
+                      class="px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors cursor-pointer"
+                    >
+                      Editar precios
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+

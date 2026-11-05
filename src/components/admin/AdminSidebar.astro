@@ -1,0 +1,112 @@
+---
+interface Props {
+  activeSection?: "inventario" | "pedidos" | "mayoristas" | "reportes";
+}
+
+const { activeSection = "inventario" } = Astro.props;
+---
+
+<aside class="w-full lg:w-68 bg-emerald-950 text-emerald-50 flex flex-col justify-between shrink-0 border-b lg:border-b-0 lg:border-r border-emerald-900">
+  <div>
+    <!-- Marca del Panel -->
+    <div class="p-6 border-b border-emerald-900 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500 text-emerald-950 flex items-center justify-center font-extrabold text-lg shadow-md">
+          B
+        </div>
+        <div>
+          <span class="font-extrabold text-lg text-white block leading-none">
+            BioRaíz <span class="text-emerald-400">Admin</span>
+          </span>
+          <span class="text-[11px] text-emerald-300/80 font-medium block mt-1">
+            Control Mayoreo y Menudeo
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Perfil de la Dueña -->
+    <div class="px-6 py-4 bg-emerald-900/40 border-b border-emerald-900/80 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full bg-emerald-700 border border-emerald-400/50 flex items-center justify-center text-xs font-bold text-white">
+        EL
+      </div>
+      <div class="overflow-hidden">
+        <p class="text-sm font-bold text-white truncate">Elena Ramírez</p>
+        <p class="text-xs text-emerald-300/80 truncate">Dueña · Administradora General</p>
+      </div>
+    </div>
+
+    <!-- Menú de Navegación -->
+    <nav class="p-4 space-y-1.5 text-sm font-medium">
+      <p class="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-emerald-400/80">
+        Gestión del Negocio
+      </p>
+
+      <a
+        href="/admin"
+        class={`flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-colors ${
+          activeSection === "inventario"
+            ? "bg-emerald-600 text-white font-semibold shadow-sm"
+            : "text-emerald-100/80 hover:bg-emerald-900 hover:text-white"
+        }`}
+      >
+        <span class="flex items-center gap-3">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          Productos y Precios
+        </span>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-800 text-emerald-200 font-bold">50</span>
+      </a>
+
+      <a
+        href="#tabla-productos"
+        class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-emerald-100/80 hover:bg-emerald-900 hover:text-white transition-colors"
+      >
+        <span class="flex items-center gap-3">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          Pedidos Recientes
+        </span>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 font-bold">
+          18 nuevos
+        </span>
+      </a>
+
+      <a
+        href="#alta-producto"
+        class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-emerald-100/80 hover:bg-emerald-900 hover:text-white transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Alta Rápida de Artículo
+      </a>
+
+      <a
+        href="#tabla-productos"
+        class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-emerald-100/80 hover:bg-emerald-900 hover:text-white transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        Clientes Mayoristas (34)
+      </a>
+    </nav>
+  </div>
+
+  <!-- Enlace de retorno a la tienda -->
+  <div class="p-4 border-t border-emerald-900">
+    <a
+      href="/"
+      class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-emerald-100 font-semibold text-sm border border-emerald-700/60 transition-colors"
+    >
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span>Ver Tienda en Línea</span>
+    </a>
+  </div>
+</aside>
+

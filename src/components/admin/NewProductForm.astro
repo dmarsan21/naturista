@@ -1,0 +1,194 @@
+---
+---
+
+<section
+  id="alta-producto"
+  class="bg-white rounded-3xl border-2 border-emerald-500/30 shadow-md p-6 sm:p-8 relative overflow-hidden"
+>
+  <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[11px] font-bold uppercase tracking-wider px-4 py-1 rounded-bl-xl">
+    Simulador Interactivo de Alta Dual
+  </div>
+
+  <div class="max-w-3xl">
+    <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
+      ✨ Formulario para la Dueña
+    </span>
+    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-2">
+      Dar de Alta un Nuevo Producto (Menudeo y Mayoreo)
+    </h3>
+    <p class="text-sm text-slate-600 mt-1">
+      Registra un artículo naturista definiendo su precio al público y su esquema de descuento para mayoristas. El sistema calcula automáticamente el margen de ahorro.
+    </p>
+  </div>
+
+  <form id="new-product-form" class="mt-6 grid grid-cols-1 md:grid-cols-12 gap-5">
+    <!-- Nombre del Producto -->
+    <div class="md:col-span-6">
+      <label for="prod-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+        Nombre del Producto *
+      </label>
+      <input
+        type="text"
+        id="prod-name"
+        name="name"
+        required
+        placeholder="Ej. Aceite Esencial de Orégano Orgánico"
+        class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none text-sm"
+      />
+    </div>
+
+    <!-- Categoría -->
+    <div class="md:col-span-3">
+      <label for="prod-category" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+        Categoría *
+      </label>
+      <select
+        id="prod-category"
+        name="category"
+        class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none text-sm bg-white"
+      >
+        <option value="Superalimentos">Superalimentos</option>
+        <option value="Extractos y Tinturas">Extractos y Tinturas</option>
+        <option value="Belleza y Articulaciones">Belleza y Articulaciones</option>
+        <option value="Sistema Inmune">Sistema Inmune</option>
+        <option value="Detox y Digestión">Detox y Digestión</option>
+      </select>
+    </div>
+
+    <!-- Presentación -->
+    <div class="md:col-span-3">
+      <label for="prod-presentation" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+        Presentación *
+      </label>
+      <input
+        type="text"
+        id="prod-presentation"
+        name="presentation"
+        required
+        placeholder="Ej. Frasco 90 cápsulas"
+        class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none text-sm"
+      />
+    </div>
+
+    <!-- Panel Destacado de Doble Precio: Menudeo vs Mayoreo -->
+    <div class="md:col-span-12 bg-emerald-50/70 border border-emerald-200 rounded-2xl p-5 grid grid-cols-1 sm:grid-cols-4 gap-4 items-center">
+      <div>
+        <label for="prod-retail" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          Precio Menudeo (MXN) *
+        </label>
+        <div class="relative">
+          <span class="absolute left-3.5 top-2.5 text-slate-400 font-bold">$</span>
+          <input
+            type="number"
+            id="prod-retail"
+            name="retailPrice"
+            min="1"
+            value="280"
+            required
+            class="w-full pl-8 pr-4 py-2 rounded-xl border border-stone-300 bg-white focus:border-emerald-600 focus:outline-none text-base font-bold text-slate-800"
+          />
+        </div>
+        <span class="text-[11px] text-slate-500 mt-1 block">Venta por pieza individual</span>
+      </div>
+
+      <div>
+        <label for="prod-wholesale" class="block text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+          ★ Precio Mayoreo (MXN) *
+        </label>
+        <div class="relative">
+          <span class="absolute left-3.5 top-2.5 text-emerald-600 font-bold">$</span>
+          <input
+            type="number"
+            id="prod-wholesale"
+            name="wholesalePrice"
+            min="1"
+            value="190"
+            required
+            class="w-full pl-8 pr-4 py-2 rounded-xl border-2 border-emerald-500 bg-white focus:border-emerald-700 focus:outline-none text-base font-extrabold text-emerald-700"
+          />
+        </div>
+        <span class="text-[11px] text-emerald-700 font-medium mt-1 block">Precio preferencial distribuidor</span>
+      </div>
+
+      <div>
+        <label for="prod-min-qty" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          Mínimo Mayoreo (Pzas)
+        </label>
+        <input
+          type="number"
+          id="prod-min-qty"
+          name="minWholesaleQty"
+          min="2"
+          value="6"
+          required
+          class="w-full px-4 py-2 rounded-xl border border-stone-300 bg-white focus:border-emerald-600 focus:outline-none text-base font-bold text-slate-800"
+        />
+        <span class="text-[11px] text-slate-500 mt-1 block">Piezas para activar mayoreo</span>
+      </div>
+
+      <!-- Calculadora en vivo de margen -->
+      <div class="bg-white rounded-xl p-3.5 border border-emerald-200/80 text-center">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+          Margen p/ Mayorista
+        </span>
+        <span id="live-margin-preview" class="text-2xl font-extrabold text-emerald-600 block mt-0.5">
+          32% ahorro
+        </span>
+        <span id="live-profit-unit" class="text-xs font-medium text-slate-500 block">
+          Ganancia: $90 MXN / pza
+        </span>
+      </div>
+    </div>
+
+    <!-- Stock inicial y SKU -->
+    <div class="md:col-span-4">
+      <label for="prod-stock" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+        Stock Inicial (Unidades)
+      </label>
+      <input
+        type="number"
+        id="prod-stock"
+        name="stock"
+        min="1"
+        value="60"
+        required
+        class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:border-emerald-600 focus:outline-none text-sm"
+      />
+    </div>
+
+    <div class="md:col-span-8">
+      <label for="prod-desc" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+        Descripción Corta de Beneficios
+      </label>
+      <input
+        type="text"
+        id="prod-desc"
+        name="description"
+        placeholder="Ej. Auxiliar digestivo e inmunológico 100% puro estandarizado en carvacrol."
+        class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:border-emerald-600 focus:outline-none text-sm"
+      />
+    </div>
+
+    <!-- Botones de Acción del Formulario -->
+    <div class="md:col-span-12 flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-stone-200/80">
+      <p id="form-feedback" class="text-sm font-semibold text-emerald-700 hidden">
+        ✅ ¡Producto agregado exitosamente a la tabla de inventario!
+      </p>
+      <div class="flex items-center gap-3 ml-auto">
+        <button
+          type="reset"
+          class="px-5 py-2.5 rounded-xl border border-stone-300 text-slate-600 hover:bg-stone-100 font-semibold text-sm transition-colors cursor-pointer"
+        >
+          Limpiar
+        </button>
+        <button
+          type="submit"
+          class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+        >
+          Guardar Producto en Catálogo
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
